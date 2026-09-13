@@ -10,7 +10,10 @@ declare global {
   var mongooseCache: Promise<typeof mongoose> | undefined;
 }
 
-const cached = global.mongooseCache ?? (global.mongooseCache = mongoose.connect(MONGO_URI));
+const cached = global.mongooseCache ?? (global.mongooseCache = mongoose.connect(MONGO_URI).catch((err) => {
+  global.mongooseCache = undefined;
+  throw err;
+}));
 
 export default async function connectToDatabase() {
   return cached;

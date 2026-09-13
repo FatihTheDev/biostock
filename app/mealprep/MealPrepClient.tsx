@@ -25,7 +25,7 @@ export default function MealPrep({ name }: Name) {
 
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
   const [recipes, setRecipes] = useState<Meal[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
   const [ingredientsCollapsed, setIngredientsCollapsed] = useState(true);
 

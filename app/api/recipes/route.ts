@@ -17,7 +17,8 @@ export async function GET() {
     await connectToDatabase();
     const recipes = await SavedRecipe.find({ userId }).lean();
     return NextResponse.json(recipes);
-  } catch {
+  } catch(err) {
+    console.error("GET /api/recipes:", err);
     return NextResponse.json({ error: "Failed to fetch recipes" }, { status: 500 });
   }
 
@@ -48,7 +49,8 @@ export async function POST(request: Request) {
     const items = parsed.data.map((item) => ({ ...item, userId }));
     await SavedRecipe.insertMany(items, { ordered: false }).catch(() => { });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch(err) {
+    console.error("POST /api/recipes:", err);
     return NextResponse.json({ error: "Failed to save recipes" }, { status: 500 });
   }
 
@@ -73,8 +75,7 @@ export async function DELETE(request: Request) {
     await connectToDatabase();
     await SavedRecipe.deleteOne({ userId, idMeal });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch(err) {
+    console.error("DELETE /api/recipes:", err);
     return NextResponse.json({ error: "Failed to delete recipe" }, { status: 500 });
-  }
-
-}
+  }}
