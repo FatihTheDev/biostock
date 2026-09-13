@@ -17,7 +17,8 @@ export async function GET() {
     await connectToDatabase();
     const ingredients = await SavedIngredient.find({ userId }).lean();
     return NextResponse.json(ingredients);
-  } catch {
+  } catch(err) {
+    console.error("GET /api/ingredients:", err);
     return NextResponse.json({ error: "Failed to fetch ingredients" }, { status: 500 });
   }
 
@@ -48,7 +49,8 @@ export async function POST(request: Request) {
     const items = parsed.data.map((item) => ({ ...item, userId }));
     await SavedIngredient.insertMany(items, { ordered: false }).catch(() => { });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch(err) {
+    console.error("POST /api/ingredients:", err);
     return NextResponse.json({ error: "Failed to save ingredients" }, { status: 500 });
   }
 
@@ -73,7 +75,8 @@ export async function DELETE(request: Request) {
     await connectToDatabase();
     await SavedIngredient.deleteOne({ userId, idIngredient });
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch(err) {
+    console.error("DELETE /api/ingredients:", err);
     return NextResponse.json({ error: "Failed to delete ingredient" }, { status: 500 });
   }
 
