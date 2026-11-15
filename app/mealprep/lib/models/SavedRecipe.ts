@@ -5,6 +5,8 @@ interface SavedRecipe {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
+  ingredients: string[];
+  strInstructions: string;
 }
 
 const savedRecipeSchema = new Schema<SavedRecipe>({
@@ -12,6 +14,8 @@ const savedRecipeSchema = new Schema<SavedRecipe>({
   idMeal: { type: String, required: true },
   strMeal: { type: String, required: true },
   strMealThumb: { type: String, required: true },
+  ingredients: { type: [String], default: [] },
+  strInstructions: { type: String, default: "" },
 }, { timestamps: false });
 
 savedRecipeSchema.index({ userId: 1, idMeal: 1 }, { unique: true });

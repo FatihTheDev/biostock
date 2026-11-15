@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+Project repository: [github.com/FatihTheDev/biostock](https://github.com/FatihTheDev/biostock)
+
 ## Getting Started
 
 ### 1. Install dependencies
@@ -39,7 +41,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | `npm run dev` | Start the development server |
 | `npm run build` | Build the production bundle |
 | `npm run start` | Serve the production build |
-| `npm test` | Run the Jest test suite |
+| `npm test` | Run the Vitest unit test suite |
+| `npm run test:watch` | Run Vitest in watch mode |
+| `npm run test:coverage` | Run the tests and report code coverage |
+
+Test documentation and the coverage report: [`app/tests/docs.md`](app/tests/docs.md)
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
@@ -54,10 +60,3 @@ yarn add react-typed
 ```
 
 Link to the package: [React Typed](https://www.npmjs.com/package/react-typed)
-
-
-To run tests, install the necessary Jest dependencies:
-
-```
-npm install --save-dev jest jest-environment-jsdom @testing-library/react @testing-library/jest-dom @types/jest ts-node
-```

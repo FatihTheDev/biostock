@@ -49,9 +49,7 @@ export async function POST(request: Request) {
 
   const { ingredients } = parsed.data;
 
-  const filterResults = await mapWithConcurrency(ingredients, 10, (i) =>
-    filterMealsByIngredient(i)
-  );
+  const filterResults = await mapWithConcurrency(ingredients, 10, (i) => filterMealsByIngredient(i));
 
   const allMealIds = new Set<string>();
   for (const r of filterResults) {
@@ -67,7 +65,13 @@ export async function POST(request: Request) {
   );
 
   const userIngredients = new Set(ingredients.map((i) => i.toLowerCase()));
-  const matching: { idMeal: string; strMeal: string; strMealThumb: string }[] = [];
+  const matching: {
+    idMeal: string;
+    strMeal: string;
+    strMealThumb: string;
+    ingredients: string[];
+    strInstructions: string;
+  }[] = [];
 
   for (const r of detailResults) {
     if (r.status !== "fulfilled") continue;
@@ -78,7 +82,13 @@ export async function POST(request: Request) {
     const missing = d.ingredients.filter((ing) => !userIngredients.has(ing));
 
     if (missing.length <= 1) {
-      matching.push({ idMeal: d.idMeal, strMeal: d.strMeal, strMealThumb: d.strMealThumb });
+      matching.push({
+        idMeal: d.idMeal,
+        strMeal: d.strMeal,
+        strMealThumb: d.strMealThumb,
+        ingredients: d.ingredients,
+        strInstructions: d.strInstructions,
+      });
     }
   }
 
