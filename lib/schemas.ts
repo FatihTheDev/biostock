@@ -13,6 +13,8 @@ export const RecipeSchema = z.object({
   idMeal: z.string().min(1),
   strMeal: z.string().min(1),
   strMealThumb: z.string().min(1),
+  ingredients: z.array(z.string()).default([]),
+  strInstructions: z.string().default(""),
 });
 
 export const RecipesBody = z.array(RecipeSchema).min(1);

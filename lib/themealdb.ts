@@ -9,10 +9,13 @@ export interface Meal {
   idMeal: string;
   strMeal: string;
   strMealThumb: string;
+  ingredients?: string[];
+  strInstructions?: string;
 }
 
 export interface MealDetail extends Meal {
   ingredients: string[];
+  strInstructions: string;
 }
 
 interface MealListResult {
@@ -105,6 +108,7 @@ export async function lookupMealById(id: string): Promise<MealDetail | null> {
     strMeal: raw.strMeal,
     strMealThumb: raw.strMealThumb,
     ingredients,
+    strInstructions: raw.strInstructions ?? "",
   };
 
 }
